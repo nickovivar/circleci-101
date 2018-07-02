@@ -19,7 +19,7 @@ jobs:
       - image: circleci/ruby:2.4.1-jessie
     steps:
       - checkout
-      - run: nocommand  
+      - run: echo "A more familiar hi"  
       - attach_workspace:
           # Must be absolute path or relative path from working_directory
           at: my_workspace
