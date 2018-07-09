@@ -3,11 +3,9 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.4.1-jessie
-    environment:
-       BASH_ENV: $HOME/.bashrc
     steps:
       - run: pwd     
-      - run: echo 'export PATH=~/.local/bin:$PATH' >> $BASH_ENV      
+      - run: export PATH=~/.local/bin:$PATH      
       - checkout
       - run: echo "A first hello"
       - run: mkdir -p my_workspace
