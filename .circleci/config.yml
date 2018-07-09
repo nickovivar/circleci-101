@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  one:
+  build:
     docker:
       - image: circleci/ruby:2.4.1-jessie
     environment:
@@ -18,7 +18,7 @@ jobs:
           # Must be relative path from root
           paths:
             - echo-output      
-  two:
+  deploy:
     docker:
       - image: circleci/ruby:2.4.1-jessie
     steps:
@@ -36,9 +36,9 @@ jobs:
           fi
 workflows:
   version: 2
-  one_and_two:
+  build_and_deploy:
     jobs:
-      - one
-      - two:
+      - build
+      - deploy:
           requires:
-            - one
+            - build
