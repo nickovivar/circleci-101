@@ -6,6 +6,7 @@ jobs:
     environment:
        BASH_ENV: $HOME/.bashrc
     steps:
+      - run: pwd     
       - run: echo 'export PATH=~/.local/bin:$PATH' >> $BASH_ENV      
       - checkout
       - run: echo "A first hello"
