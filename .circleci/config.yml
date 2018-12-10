@@ -83,7 +83,7 @@ workflows:
   build_and_deploy:
     jobs:
       - build
-      - build-security
+      - build-securiti
       - test-unit-00:
           requires:
             - build
