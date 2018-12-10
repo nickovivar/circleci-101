@@ -6,11 +6,11 @@ jobs:
     steps:
       - run: echo "Build"
   
-  build-security:
+  build-securiti:
     docker:
       - image: circleci/ruby:2.4.1-jessie
     steps:
-      - run: echo "Build Security"
+      - run: echo "Build Securiti"
 
   test-unit-01:
     docker:
@@ -112,7 +112,7 @@ workflows:
       - build-app01:
           requires:
             - deploy-qa
-      - build app02:
+      - build-app02:
           requires:
             - deploy-qa
       - migrations:
