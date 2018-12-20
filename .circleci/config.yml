@@ -60,17 +60,11 @@ jobs:
     steps:
       - run: echo "Build Worker"
 
-  build-app01:
+  build-app:
     docker:
       - image: circleci/ruby:2.4.1-jessie
     steps:
       - run: echo "Build App 01"
-  
-  build-app02:
-    docker:
-      - image: circleci/ruby:2.4.1-jessie
-    steps:
-      - run: echo "Build App 02"
   
   migrations:
     docker:
@@ -124,13 +118,7 @@ workflows:
       - build-worker:
           requires:
             - deploy-qa
-      - build-app01:
-          requires:
-            - deploy-qa
-          filters:
-            branches:
-              only: production
-      - build-app02:
+      - build-app:
           requires:
             - deploy-qa
           filters:
@@ -139,8 +127,7 @@ workflows:
       - migrations:
           requires:
             - build-worker
-            - build-app01
-            - build-app02
+            - build-app
           filters:
             branches:
               only: production
