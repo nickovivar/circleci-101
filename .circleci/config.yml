@@ -42,6 +42,12 @@ jobs:
     steps:
       - run: echo "Ansible"
 
+  deploy-staging:
+    docker:
+      - image: circleci/ruby:2.4.1-jessie
+    steps:
+      - run: echo "Deploy Staging"
+  
   deploy-qa:
     docker:
       - image: circleci/ruby:2.4.1-jessie
@@ -103,26 +109,47 @@ workflows:
             - test-e2e
             - test-services
             - build-securiti
+      - deploy-staging:
+          requires:
+            - ansible
+          filters:
+            branches:
+              only: master
       - deploy-qa:
           requires:
             - ansible
+          filters:
+            branches:
+              only: production
       - build-worker:
           requires:
             - deploy-qa
       - build-app01:
           requires:
             - deploy-qa
+          filters:
+            branches:
+              only: production
       - build-app02:
           requires:
             - deploy-qa
+          filters:
+            branches:
+              only: production
       - migrations:
           requires:
             - build-worker
             - build-app01
             - build-app02
+          filters:
+            branches:
+              only: production
       - start-command:
           requires: 
             - migrations 
+          filters:
+            branches:
+              only: production
 
 
 
